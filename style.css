@@ -6,6 +6,11 @@ body {
 * {
     font-family: 'Gothic A1', sans-serif;
 }
+
+a:hover {
+    text-decoration: none;
+}
+
 #subscribe-form {
     padding: 20px;
     margin: 0 auto;
@@ -143,6 +148,13 @@ li {
 }
 
 .delete-list {
+    padding: 10px;
+    color: #464646;
+    float: right;
+    cursor: pointer;
+}
+
+.delete-item {
     padding: 10px;
     color: #464646;
     float: right;

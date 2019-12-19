@@ -33,7 +33,49 @@ $(document).ready(function() {
             updateListe(lists);
             }
         })
-    }); 
+    });
+
+    $(document).on('click', '.name', function(){
+        event.preventDefault();
+        var id = $(this).parent().attr('id');
+
+        Swal.fire({
+            title: 'Changement du titre de la liste:',
+            input: 'text',
+            showCancelButton: true,
+            inputValidator: (value) => {
+                if (!value) {
+                return 'Tu dois choisir un titre!'
+                }
+            lists.todoListes[id].name = value;
+            updateListe(lists);
+            }
+        })
+    });
+
+    $(document).on('click', '.item', function(){
+        event.preventDefault();
+        var id_list = $(this).attr('list');
+        var id_item = $(this).attr('item');
+
+        Swal.fire({
+            title: 'Changement du texte la task :',
+            input: 'text',
+            showCancelButton: true,
+            inputValidator: (value) => {
+                if (!value) {
+                return 'Tu dois choisir un texte!'
+                }
+            lists.todoListes[id_list].elements[id_item] = value
+            updateListe(lists);
+            }
+        })
+    });
+
+    $(document).on('dblclick', '.item', function(){
+        event.preventDefault();
+        console.log("deleted");
+    });
 
     $(document).on('click', '.delete-list', function(){
         event.preventDefault();
@@ -45,14 +87,14 @@ $(document).ready(function() {
         elements = lists.todoListes[$(this).attr("parent")].elements;
         var last_elem;
         for (var i=0;i<elements.length;i++){
-            last_elem = i;
+            last_elem = i + 1;
         }
 
         if(last_elem == null) {
             last_elem = 0;
         }
 
-        lists.todoListes[$(this).attr("parent")].elements[last_elem + 1] = $(this).children().val();
+        lists.todoListes[$(this).attr("parent")].elements[last_elem] = $(this).children().val();
         updateListe(lists);
 
     }); 
@@ -63,7 +105,7 @@ $(document).ready(function() {
             $("#subscribe-form").remove();
             getListe();
             $(".action-bar").append('<button class="button-connect m-2 add-list" ><i class="fa fa-plus"></i> Nouvelle Liste</button>');
-            $(".action-bar").append('<button class="button-connect m-2" ><i class="fa fa-save"></i> Save</button>');
+            $(".action-bar").append('<button class="button-connect m-2" disabled><i class="fa fa-save"></i> Save</button>');
         } else {
             Swal.fire({
                 icon: 'error',
@@ -118,20 +160,18 @@ $(document).ready(function() {
             $("#sortable").attr('id', 'sortable');
             $("#sortable").sortable();
             $("#sortable").disableSelection();
-            $("#sortable0").sortable();
-            $("#sortable1").sortable();
         });
     }
 
     function showListe(liste, id) {
         var name = liste.name;
         var list = $(`<div class='list' id='${id}'><span class='delete-list'><i class='fa fa-times-circle'></i></span></div>`);
-        $("<div class='name'>/div>").text(name).appendTo(list);
+        $(`<div class='name'>/div>`).text(name).appendTo(list);
 
         var items = $(`<ul class='items' id='sortable${id}'></ul>`)
 
         for (var i=0;i<liste.elements.length;i++){
-            $("<li class='item'></li>").text(liste.elements[i]).appendTo(items);
+            $(`<li class='item' list='${id}' item='${i}'></li>`).text(liste.elements[i]).appendTo(items);
         }
         items.appendTo(list);
         $(`<form class="add-child" parent="${id}"><input class='add-item' type='text'></form>`).appendTo(list);
