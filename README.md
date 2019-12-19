@@ -19,8 +19,8 @@ You can subscribe to test trollo or use this account:
 
 ## Future Features 
 * Moving tasks in different ToDoList.
-* Update ToDoList name.
-* Update task name.
+* [Done] Update ToDoList name.
+* [Done] Update task name.
 * Save order (after moving elements) of ToDoList & tasks.
 
 ## Démo
