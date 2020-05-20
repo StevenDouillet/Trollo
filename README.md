@@ -23,7 +23,9 @@ You can subscribe to test trollo or use this account:
 * [Done] Update task name.
 * Save order (after moving elements) of ToDoList & tasks.
 
-## Démo
-* Soon
+## Home démo
+* Build the docker image : docker build -t dockerfile .
+* Run the docker image after building : sudo docker run -ti -p 1024:80 dockerfile
+* Then go to http://localhost:1024/ in a browser
 
  /!\ Saving button is actually disbaled and will be used in the future /!\
